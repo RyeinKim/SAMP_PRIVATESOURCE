@@ -1,5 +1,4 @@
 #include <a_samp>
-#include <foreach>
 
 #define ENUM_WARP 3
 
@@ -11,11 +10,6 @@ enum WARP
 }
 
 new WarpDTO[MAX_PLAYERS][WARP];
-
-
-
-
-
 /*=========================================================================*/
 
 
