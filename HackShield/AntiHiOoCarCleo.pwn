@@ -14,14 +14,11 @@ enum WARP
 new WarpDTO[MAX_PLAYERS][WARP];
 /*=========================================================================*/
 
-
-
 public OnGameModeInit()
 {
    server_init();
    return 1;
 }
-
 
 
 stock server_init()
@@ -41,7 +38,6 @@ public WarpThread()
 }
 
 
-
 stock warpManager(playerid){
 
    if(!WarpDTO[playerid][INCAR]) return false;
@@ -50,7 +46,6 @@ stock warpManager(playerid){
    return 1;
 
 }
-
 
 
 /*=========================================================================

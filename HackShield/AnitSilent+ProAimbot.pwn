@@ -24,8 +24,9 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
             if(SilentAimCount[playerid] >= 10)
             {
                 SilentAimCount[playerid] = 0;
-                format(string, sizeof(string), " %s(%d) 가 SilentAim을 사용하는것으로 의심됨.  %s (Distance: %i meters)", GetName(playerid),playerid, armaaim, floatround(DistantaAim));
+                format(string, sizeof(string), " %s(%d) 가 SilentAim을 사용하는것으로 의심됨.  %s (Distance: %i meters)", PlayerName(playerid),playerid, armaaim, floatround(DistantaAim));
                 SendToAdmins(string);
+				WriteLog(playerid);
             }
             return 1;
         }
@@ -36,8 +37,9 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
             if(ProAimCount[playerid] >= 5)
             {
                 ProAimCount[playerid] = 0;
-                format(string, sizeof(string), " %s(%d) 가 ProAim을 사용하는것으로 의심됨. %s (Distance: %i meters)", GetName(playerid),playerid,armaaim, floatround(DistantaAim));
+                format(string, sizeof(string), " %s(%d) 가 ProAim을 사용하는것으로 의심됨. %s (Distance: %i meters)", PlayerName(playerid),playerid,armaaim, floatround(DistantaAim));
                 SendToAdmins(string);
+                WriteLog(playerid);
             }
         }
     }
@@ -62,9 +64,28 @@ stock SendToAdmins(string2[])
     }
 }
 
-stock GetName(playerid)
+stock WriteLog(playerid)
 {
-    new Name[MAX_PLAYER_NAME];
-    GetPlayerName(playerid, Name, sizeof(Name));
-    return Name;
+    new sLogFileName[64], sLogData[128];
+	new year,  month, day, hour, minute, second;
+    getdate(year, month, day); gettime(hour, minute, second);
+    format(sLogFileName, 64, "Log/Aimbot/%s(%d.%d.%d-%d:%d:%d) - Aimbot.log", PlayerName(playerid), year, month, day, hour, minute, second);
+    new File:log=fopen(sLogFileName, io_append);
+    format(sLogData,sizeof sLogData,"%s 가 ProAim or Silent Aim을 사용함.  IP:%s\r\n",PlayerName(playerid),GetIP(playerid));
+    fwrite(log, sLogData);
+    fclose(log);
+}
+
+stock PlayerName(playerid)
+{
+	new name[MAX_PLAYER_NAME];
+	GetPlayerName(playerid, name, MAX_PLAYER_NAME);
+	return name;
+}
+
+stock GetIP( playerid )
+{
+    new IPAddress[16];
+    GetPlayerIp( playerid, IPAddress, 16 );
+    return IPAddress;
 }
