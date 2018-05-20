@@ -11,7 +11,7 @@ public OnPlayerChangeVehicle(playerid, vehicleid)
 {
     new string[256];
 	#pragma unused vehicleid
-	if((GetTickCount() - g_VehTime[playerid]) < 500)
+	if((GetTickCount() - g_VehTime[playerid]) < 400)
 	{
 	    SendClientMessage(playerid, 0xFF0000FF, "차량 클레오를 사용 하여 서비스 블럭 처리됩니다.");
 		format(string, sizeof(string),"%s (%d) 가 서비스 블럭처리 되었습니다. [사유: 차량클레오]", PlayerName(playerid), playerid);
